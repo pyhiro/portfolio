@@ -40,16 +40,3 @@ class Transaction(object):
         return signature
 
 
-if __name__ == '__main__':
-    accountA = Account("jfaj")
-    accountB = Account("fjeafjoi")
-    t = Transaction(accountA.private_key, accountA.public_key, "A", "B", 1)
-    print(t.generate_signature())
-#######################
-
-    tf = blockchain.add_transaction(
-        "A", "B", 1, accountA.public_key, t.generate_signature()
-    )
-    print(tf)
-    time.sleep(5)
-    print(blockchain.chain)
