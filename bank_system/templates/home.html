@@ -5,6 +5,7 @@
     <title>Title</title>
 </head>
 <body>
+    <h2>{{ message.name }}</h2>
     <h1>You have ${{ message.value }}!</h1>
     <form action="/home/{{ message.id }}" method="post">
         <label for="to">to email:</label>

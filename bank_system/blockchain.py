@@ -1,10 +1,12 @@
 import hashlib
-import json
+import logging
 import time
-import sqlite3
+
 
 from ecdsa import NIST256p
 from ecdsa import VerifyingKey
+
+logging.basicConfig(level=logging.DEBUG)
 
 class BlockChain(object):
 
@@ -45,7 +47,8 @@ class BlockChain(object):
             bytes().fromhex(public_key), curve=NIST256p
         )
         verified_key = verifying_key.verify(sign_to_byte, obj)
-        return verifying_key
+        return verified_key
+
 
     def find_nonce(self):
         hash = hashlib.sha256(str(self.chain[-1]).encode()).hexdigest()
@@ -67,6 +70,7 @@ class BlockChain(object):
             self.create_block(nonce, previous_hash)
             print(self.chain)
             print("============================================")
+
 
     def total_value(self, email_address):
         total = 0

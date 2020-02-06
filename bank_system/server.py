@@ -54,7 +54,6 @@ def signup():
 def login():
     if request.method == "POST":
         email = request.values["mail"]
-        logging.debug(email, type(email))
         password = request.values["pass"]
         hashed_password = hashlib.sha256(salt + password.encode('utf-8')).hexdigest()
         conn = sqlite3.connect("account.db")
@@ -81,7 +80,7 @@ def home(id):
     value = blockchain_obj.total_value(email)
     message = {"value": value,
            "id": id,
-           "msg": ""}
+           "name": email}
     if request.method == "POST" and request.values["value"].isdigit():
         sender_address = email
         recipient_address = request.values["to"]
