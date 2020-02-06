@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+</head>
+<body>
+    <h2>{{ message.msg }}</h2>
+    <h1>sign up</h1>
+    <form action="/signup" method="post">
+        <label for="mail">Email:</label>
+        <input type="email" id="mail" name="mail">
+        <label for="pass">pass word</label>
+        <input type="password" id="pass" name="pass">
+        <input type="submit" value="click">
+    </form>
+    <p>if you have already been a member--</p>
+    <a href="/login">login</a>
+</body>
+</html>

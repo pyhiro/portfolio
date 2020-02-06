@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+</head>
+<body>
+    <h2>{{ message.name }}</h2>
+    <h1>You have ${{ message.value }}!</h1>
+    <form action="/home/{{ message.id }}" method="post">
+        <label for="to">to email:</label>
+        <input type="email" id="to" name="to">
+        <label for="value">send value</label>
+        <input type="text" id="value" name="value">
+        <input type="submit" value="click">
+    </form>
+</body>
+</html>
