@@ -47,16 +47,13 @@ def can_move_to(now_pos, all_map):
 def move_to(now_pos, all_map):
     can_move_to_list = can_move_to(now_pos, all_map)
     global EDGE_FLAG
-    print(PREVIOUS_ROOT)
     if can_move_to_list:
         for future_pos in can_move_to_list:
             if now_pos not in PREVIOUS_ROOT:
                 PREVIOUS_ROOT.append(now_pos)
-                print(PREVIOUS_ROOT)
             if future_pos == GOAL:
                 ALL_GOAL_ROOT.append(PREVIOUS_ROOT.copy())
                 PREVIOUS_ROOT.pop()
-                print(PREVIOUS_ROOT)
                 EDGE_FLAG = True
                 return
             move_to(future_pos, all_map)
@@ -67,11 +64,10 @@ def move_to(now_pos, all_map):
             if EDGE_FLAG:
                 PREVIOUS_ROOT.pop()
                 EDGE_FLAG = False
-                print(PREVIOUS_ROOT)
     else:
         PREVIOUS_ROOT.pop()
         EDGE_FLAG = False
-        print(PREVIOUS_ROOT)
+
 
 
 if __name__ == '__main__':
