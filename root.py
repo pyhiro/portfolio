@@ -84,6 +84,7 @@ if __name__ == '__main__':
             shortest_root = check_shortest
 
     shortest_root.pop(0)
+    shortest_root.pop(0)
     for change_pos in shortest_root:
         root_map[change_pos[0]][change_pos[1]] = '$'
 
