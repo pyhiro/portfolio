@@ -26,6 +26,7 @@ def get_pos(all_map):
 
 def can_move_to(now_pos, all_map):
     can_move_to_list = []
+    global EDGE_FLAG
     if (all_map[now_pos[0]-1][now_pos[1]] in (' ', 'G')) and\
             (now_pos[0]-1, now_pos[1]) not in PREVIOUS_ROOT:
         can_move_to_list.append((now_pos[0]-1, now_pos[1]))
@@ -38,9 +39,7 @@ def can_move_to(now_pos, all_map):
     if (all_map[now_pos[0]][now_pos[1]+1] in (' ', 'G')) and\
             (now_pos[0], now_pos[1]+1) not in PREVIOUS_ROOT:
         can_move_to_list.append((now_pos[0], now_pos[1]+1))
-    if not can_move_to_list:
-        global EDGE_FLAG
-        EDGE_FLAG = True
+    EDGE_FLAG = True
     return can_move_to_list
 
 
@@ -49,13 +48,14 @@ def move_to(now_pos, all_map):
     global EDGE_FLAG
     if can_move_to_list:
         for future_pos in can_move_to_list:
-            if now_pos not in PREVIOUS_ROOT:
-                PREVIOUS_ROOT.append(now_pos)
             if future_pos == GOAL:
+                PREVIOUS_ROOT.append(now_pos)
                 ALL_GOAL_ROOT.append(PREVIOUS_ROOT.copy())
                 PREVIOUS_ROOT.pop()
-                EDGE_FLAG = True
+                PREVIOUS_ROOT.pop()
+                EDGE_FLAG = False
                 return
+            PREVIOUS_ROOT.append(now_pos)
             move_to(future_pos, all_map)
             if future_pos == can_move_to_list[-1]:
                 EDGE_FLAG = True
@@ -64,16 +64,18 @@ def move_to(now_pos, all_map):
             if EDGE_FLAG:
                 PREVIOUS_ROOT.pop()
                 EDGE_FLAG = False
+                break
     else:
         PREVIOUS_ROOT.pop()
         EDGE_FLAG = False
+        return
 
 
 
 if __name__ == '__main__':
     root_map = file_read('root.txt')
     start, GOAL = get_pos(root_map)
-    print(GOAL)
+    PREVIOUS_ROOT.append(start)
     move_to(start, root_map)
 
     shortest_root = ALL_GOAL_ROOT[0]
